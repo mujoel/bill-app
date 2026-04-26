@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         new HomeFragment(),
         new BillsFragment(),
         new PaymentsFragment(),
+        new PrescriptionFragment(),
         new ProfileFragment()
     };
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         R.id.nav_home,
         R.id.nav_bills,
         R.id.nav_payments,
+        R.id.nav_prescription,
         R.id.nav_profile
     };
 
@@ -55,5 +57,13 @@ public class MainActivity extends AppCompatActivity {
         if (index >= 0 && index < navIds.length) {
             bottomNav.setSelectedItemId(navIds[index]);
         }
+    }
+
+    public void loadFragmentInstance(Fragment fragment) {
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit();
     }
 }

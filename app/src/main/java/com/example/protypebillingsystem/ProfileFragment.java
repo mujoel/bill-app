@@ -35,11 +35,14 @@ public class ProfileFragment extends Fragment {
         setProfileRow(view.findViewById(R.id.row_doctor),    "Doctor",         s.doctor);
         setProfileRow(view.findViewById(R.id.row_admission), "Admission Date", s.admissionDate);
         setProfileRow(view.findViewById(R.id.row_blood),     "Blood Type",     s.bloodType);
+        setProfileRow(view.findViewById(R.id.row_insurance), "Insurance Type", s.insuranceProvider);
 
         view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
+            TokenManager tm = new TokenManager(requireContext());
+            tm.clearToken();
             PatientSession.getInstance().clear();
             startActivity(new Intent(requireContext(), LoginActivity.class));
-            requireActivity().finish();
+            requireActivity().finishAffinity();
         });
 
         return view;
@@ -50,6 +53,6 @@ public class ProfileFragment extends Fragment {
         TextView tvLabel = row.findViewById(R.id.tv_profile_label);
         TextView tvValue = row.findViewById(R.id.tv_profile_value);
         if (tvLabel != null) tvLabel.setText(label);
-        if (tvValue != null) tvValue.setText(value != null ? value : "—");
+        if (tvValue != null) tvValue.setText(value != null && !value.isEmpty() ? value : "—");
     }
 }
